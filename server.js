@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
 const post = require("./routes/api/post");
 const profile = require("./routes/api/profile");
-const user = require("./routes/api/user");
+const users = require("./routes/api/users");
 app.use(express.urlencoded({ extended: false }));
 //app.use(express.json());
 app.use("/api/post", post);
 app.use("/api/profile", profile);
-app.use("/api/user", user);
+app.use("/api/users", users);
 
 mongoose
   .connect(db)
