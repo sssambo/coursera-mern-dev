@@ -51,4 +51,22 @@ router.post("/register", (req, res) => {
     }
   });
 });
+
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  /*
+  console.log(req.body);
+  return res.status(400).json({ message: `maintenance` }); */
+  let { email, password } = req.body;
+
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      return res.status(400).json({ message: `User ${email} doesn't exist` });
+    }
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      if (isMatch) res.json({ msg: "success" });
+      else return res.status(400).json({ password: "Password incorrect" });
+    });
+  });
+});
 module.exports = router;
