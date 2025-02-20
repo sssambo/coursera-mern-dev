@@ -12,10 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //passport middleware
-//app.use(passport.initialise());
+app.use(passport.initialize());
 
 //passport config
-//require("./config/passport")(passport);
+require("./config/passport")(passport);
 
 app.use("/api/post", post);
 app.use("/api/profile", profile);
