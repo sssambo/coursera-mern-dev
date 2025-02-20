@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require("../../model/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { secretOrKey } = require("../../config/keys");
 
 router.get("/test", (req, res) => {
   console.log(req.url);
@@ -53,10 +55,6 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  console.log(req.body);
-  /*
-  console.log(req.body);
-  return res.status(400).json({ message: `maintenance` }); */
   let { email, password } = req.body;
 
   User.findOne({ email }).then((user) => {
@@ -64,8 +62,19 @@ router.post("/login", (req, res) => {
       return res.status(400).json({ message: `User ${email} doesn't exist` });
     }
     bcrypt.compare(password, user.password).then((isMatch) => {
-      if (isMatch) res.json({ msg: "success" });
-      else return res.status(400).json({ password: "Password incorrect" });
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar,
+        };
+
+        jwt.sign(payload, secretOrKey, { expiresIn: "3600" }, (err, token) => {
+          if (err) throw err;
+          return res.json({ msg: "success", token: `Bearer ${token}` });
+        });
+      } else return res.status(400).json({ password: "Password incorrect" });
     });
   });
 });
