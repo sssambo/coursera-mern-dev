@@ -14,10 +14,11 @@
     "bcrypt": "^5.1.1",
     "express": "^4.21.2",
     "gravatar": "^1.8.2",
-    "jsonwebtoken": "^9.0.2",
+    "": "^9.0.2",
     "mongoose": "^8.10.1",
     "nodemon": "^3.1.9",
     "passport": "^0.7.0",
-    "passport-jwt": "^4.0.1"
+    "passport-jwt": "^4.0.1",
+    "validators": "^0.3.1"
   }
 }
