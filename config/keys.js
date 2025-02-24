@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://127.0.0.1:27017/coursera-dev",
-  secretOrKey: "mykey",
+  mongoURI: "your mongodb uri",
+  secretOrKey: "key of your choice",
 };
